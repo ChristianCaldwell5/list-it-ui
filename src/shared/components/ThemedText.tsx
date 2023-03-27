@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import GlobalStyle from '../global-styles';
+import GlobalStyle from '../styles/global-set';
 
 const ThemedText = (props) => {
     return (

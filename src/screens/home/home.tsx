@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import NavigationBar from '../../shared/navigation';
-import ThemedText from '../../shared/simple-components/ThemedText';
+import NavigationBar from '../../shared/components/Navigation';
+import ThemedText from '../../shared/components/ThemedText';
 
 const HomeScreen = (props) => {
   return (

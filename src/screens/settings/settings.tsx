@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import NavigationBar from '../../shared/navigation';
+import NavigationBar from '../../shared/components/Navigation';
 
 const SettingsScreen = (props) => {
   return (
