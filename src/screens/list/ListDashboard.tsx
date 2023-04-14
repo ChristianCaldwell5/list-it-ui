@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -11,78 +11,87 @@ import GlobalStyles from '../../shared/styles/global-styles';
 import NavigationBar from '../../shared/components/Navigation';
 import ThemedText from '../../shared/components/ThemedText';
 import { MaterialIcons } from '@expo/vector-icons';
-import GlobalStyle from '../../shared/styles/global-set';
+import { ListCardProps, Lists } from '../../shared/models/list';
+import { ShortList } from '../../../assets/mocks/short-list';
 
-/**
- * Main view when navigating to lists
- * @param props 
- * @returns List Dashboard Screen
- */
-const ListDashboardScreen = (props) => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.contentScrollView} contentContainerStyle={styles.contentContainer}>
-        <View style={[styles.header, GlobalStyles.flexRow, GlobalStyles.spaceBetween, GlobalStyles.alignCenter, GlobalStyles.fullWidth]}>
-          <ThemedText
-            text={"Your Lists"}
-            bold={true}
-            fontSize={GlobalSet.fontSizes.xlarge}
-            color={GlobalSet.colorSet.bgBlack}>
-          </ThemedText>
-          <TouchableOpacity
-            style={[styles.navBtn, GlobalStyles.flexRow]}>
-              <ThemedText
-                text={"ADD"}
-                bold={true}
-                fontSize={GlobalSet.fontSizes.large}
-                color={GlobalSet.colorSet.BtnFB}>
-              </ThemedText>
-              <MaterialIcons name='add' size={20} color='black'/>
-          </TouchableOpacity>
-        </View>
-        <ListHintCard></ListHintCard>
-        <ListHintCard></ListHintCard>
-        <ListHintCard></ListHintCard>
-        <ListHintCard></ListHintCard>
-        <ListHintCard></ListHintCard>
-        <ListHintCard></ListHintCard>
-        <ListHintCard></ListHintCard>
-        <ListHintCard></ListHintCard>
-        <ListHintCard></ListHintCard>
-        <ListHintCard></ListHintCard>
-        <ListHintCard></ListHintCard>
-        <ListHintCard></ListHintCard>
-      </ScrollView>
-      <NavigationBar props={props}></NavigationBar>
-    </SafeAreaView>
-  );
+interface ListScreenState {
+  lists: Lists[];
+}
+
+export default class ListDashboardScreen extends React.Component<{}, ListScreenState> {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      lists: []
+    }
+  }
+
+  componentDidMount(): void {
+    this.setState({ lists: ShortList })
+  }
+
+  render(): React.ReactNode {
+    return(
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.contentScrollView} contentContainerStyle={styles.contentContainer}>
+          <View style={[styles.header, GlobalStyles.flexRow, GlobalStyles.spaceBetween, GlobalStyles.alignCenter, GlobalStyles.fullWidth]}>
+            <ThemedText
+              text={"Your Lists"}
+              bold={true}
+              fontSize={GlobalSet.fontSizes.xlarge}
+              color={GlobalSet.colorSet.bgBlack}>
+            </ThemedText>
+            <TouchableOpacity
+              style={[styles.navBtn, GlobalStyles.flexRow]}>
+                <ThemedText
+                  text={"ADD"}
+                  bold={true}
+                  fontSize={GlobalSet.fontSizes.large}
+                  color={GlobalSet.colorSet.BtnFB}>
+                </ThemedText>
+                <MaterialIcons name='add' size={20} color='black'/>
+            </TouchableOpacity>
+          </View>
+          {
+            this.state.lists.map((list) => 
+              <ListHintCard lists={list} key={list.title}></ListHintCard>
+            )
+          }
+        </ScrollView>
+        <NavigationBar props={this.props}></NavigationBar>
+      </SafeAreaView>
+    )
+  };
+
 }
 
 /**
- * Displays info for a particular list in dashboard
- * @param props 
- * @returns List Hint Card 
- */
-const ListHintCard = (props) => {
+  * Displays info for a particular list in dashboard
+  * @param list 
+  * @returns List Hint Card 
+*/
+ const ListHintCard = (props: ListCardProps) => {
   return (
     <View style={styles.cardContainer}>
       <View style={[GlobalStyles.flexColumn]}>
         <ThemedText
-          text={"Example List"}
+          text={props.lists.title}
           bold={true}
           fontSize={GlobalSet.fontSizes.large}
           color={GlobalSet.colorSet.whiteLight}>
         </ThemedText>
         <View style={[{marginTop: 20}, GlobalStyles.flexRow, GlobalStyles.spaceBetween]}>
           <ThemedText
-            text={"4 Items"}
+            text={props.lists.itemCount + " items"}
             bold={false}
             fontSize={GlobalSet.fontSizes.regular}
             color={GlobalSet.colorSet.whiteLight}>
           </ThemedText>
           <View style={[GlobalStyles.flexRow, GlobalStyles.alignCenter]}>
             <ThemedText
-              text={"0"}
+              text={props.lists.sharedCount}
               bold={false}
               fontSize={GlobalSet.fontSizes.regular}
               color={GlobalSet.colorSet.whiteLight}>
@@ -135,7 +144,5 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-},
+  },
 });
-
-export default ListDashboardScreen;
