@@ -1,10 +1,17 @@
-export interface Lists {
+export interface List {
     title: string,
     itemCount: number,
     sharedCount: number
 }
 
-export interface ListCardProps {
+// props
+export interface ListHintCardProps {
     key: string,
-    lists: Lists
+    list: List
+}
+
+// states
+export interface ListScreenState {
+    lists: List[];
+    displayModal: boolean
 }

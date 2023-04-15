@@ -1,5 +1,5 @@
-import { Lists } from "../../src/shared/models/list"
-export const ShortList: Lists[] = [
+import { List } from "../../src/shared/models/list"
+export const ShortList: List[] = [
     {
         title: 'Groceries',
         itemCount: 32,
