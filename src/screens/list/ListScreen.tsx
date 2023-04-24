@@ -3,7 +3,8 @@ import {
   SafeAreaView,
   ScrollView,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Button
 } from 'react-native';
 import GlobalSet from '../../shared/styles/global-set';
 import GlobalStyles from '../../shared/styles/global-styles';
@@ -15,6 +16,8 @@ import { ShortList } from '../../../assets/mocks/short-list';
 import ListStyles from './ListStyles';
 import { ListScreenState } from '../../shared/models/list';
 import Modal from '../../shared/components/Modal';
+import { useForm } from 'react-hook-form';
+import { FormInput } from '../../shared/components/FormInput';
 
 const styles = ListStyles;
 
@@ -36,7 +39,7 @@ export default class ListScreen extends React.Component<{}, ListScreenState> {
   render(): React.ReactNode {
     return(
       <SafeAreaView style={styles.container}>
-        {this.state.displayModal && <Modal shouldDisplay={this.state.displayModal}></Modal>}
+        {this.state.displayModal && <Modal title={'New List'} shouldDisplay={(e) => this.handleDisplayModal(e)} children={this.addListModalContent()}></Modal>}
         <ScrollView style={styles.contentScrollView} contentContainerStyle={styles.contentContainer}>
           <View style={[styles.header, GlobalStyles.flexRow, GlobalStyles.spaceBetween, GlobalStyles.alignCenter, GlobalStyles.fullWidth]}>
             <ThemedText
@@ -46,7 +49,7 @@ export default class ListScreen extends React.Component<{}, ListScreenState> {
               color={GlobalSet.colorSet.bgBlack}>
             </ThemedText>
             <TouchableOpacity
-              onPress={() => this.displayAddListModal()}
+              onPress={this.displayAddListModal}
               style={[styles.addBtn, GlobalStyles.flexRow]}>
                 <ThemedText
                   text={"ADD"}
@@ -68,8 +71,26 @@ export default class ListScreen extends React.Component<{}, ListScreenState> {
     )
   };
 
-  private displayAddListModal() {
+  private addListModalContent(): JSX.Element {
+    const { control, handleSubmit } = useForm();
+    return (
+      <View>
+        <FormInput name='listTitle' control={control}></FormInput>
+        <Button title='Submit' onPress={handleSubmit(this.addList)}></Button>
+      </View>
+    )
+  }
+
+  private displayAddListModal = () => {
     this.setState({ displayModal: true });
+  }
+
+  handleDisplayModal(value: boolean): void {
+    this.setState({ displayModal: value });
+  }
+
+  private addList = (data) => {
+    console.log(data);
   }
 
 }
