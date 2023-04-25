@@ -1,6 +1,7 @@
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import HomeScreen from "./src/screens/home/home";
-import ListScreen from "./src/screens/list/ListScreen";
+import ListScreen2 from "./src/screens/list/ListScreen2";
+import ListScreen from "./src/screens/list/ListScreen2";
 import SettingsScreen from "./src/screens/settings/settings";
 
 const navigator = createSwitchNavigator(
@@ -10,7 +11,7 @@ const navigator = createSwitchNavigator(
             navigationOptions: {title: "Home"}
         },
         List: {
-            screen: ListScreen,
+            screen: ListScreen2,
             navigationOptions: {title: "List"}
         },
         Settings: {

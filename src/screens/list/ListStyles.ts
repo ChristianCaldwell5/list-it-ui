@@ -42,6 +42,18 @@ const ListStyles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
+    label: {
+      marginBottom: 10,
+    },
+    submit: {
+      width: '100%',
+      backgroundColor: GlobalSet.colorSet.BtnFB,
+      borderRadius: 5,
+      padding: 10,
+      marginVertical: 5,
+      alignItems: 'center',
+      fontSize: GlobalSet.fontSizes.regular
+  }
 });
 
 export default ListStyles;

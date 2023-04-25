@@ -8,14 +8,13 @@ import ThemedText from "./ThemedText";
 interface ModalProps {
     title: string;
     shouldDisplay: (value: boolean) => void;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export default class Modal extends React.Component<ModalProps> {
 
     constructor(props) {
         super(props);
-        console.log(props);
     }
 
     render(): React.ReactNode {

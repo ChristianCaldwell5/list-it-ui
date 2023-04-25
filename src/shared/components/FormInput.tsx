@@ -1,28 +1,37 @@
 import React from "react";
+import { StyleSheet } from 'react-native';
 import { useController } from "react-hook-form";
 import { TextInput } from "react-native-gesture-handler";
+import GlobalSet from '../../shared/styles/global-set';
 
 interface FormInputProps {
     name: string;
-    control: any;
+    control?: any;
 }
 
-export class FormInput extends React.Component<FormInputProps> {
-    constructor(props: FormInputProps) {
-        super(props);
-    }
-
-    render(): React.ReactNode {
-        const {field} = useController({
-            control: this.props.control,
-            name: this.props.name,
-            defaultValue: ''
-        })
-        return (
-            <TextInput
-                value={field.value}
-                onChangeText={field.onChange}
-            />
-        )
-    }
+export default function FormInput(props: FormInputProps) {
+    const {field} = useController({
+        control: props.control,
+        name: props.name,
+        defaultValue: ''
+    })
+    return (
+        <TextInput
+            value={field.value}
+            onChangeText={field.onChange}
+            style={styles.input}
+        />
+    )
 }
+
+const styles = StyleSheet.create({
+    input: {
+        width: '100%',
+        borderColor: GlobalSet.colorSet.bgBlack,
+        borderWidth: 1,
+        borderRadius: 5,
+        padding: 10,
+        marginVertical: 5,
+        fontSize: GlobalSet.fontSizes.regular
+    }
+});

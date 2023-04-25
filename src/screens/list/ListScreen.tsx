@@ -16,8 +16,8 @@ import { ShortList } from '../../../assets/mocks/short-list';
 import ListStyles from './ListStyles';
 import { ListScreenState } from '../../shared/models/list';
 import Modal from '../../shared/components/Modal';
+import FormInput from '../../shared/components/FormInput';
 import { useForm } from 'react-hook-form';
-import { FormInput } from '../../shared/components/FormInput';
 
 const styles = ListStyles;
 
@@ -89,8 +89,8 @@ export default class ListScreen extends React.Component<{}, ListScreenState> {
     this.setState({ displayModal: value });
   }
 
-  private addList = (data) => {
-    console.log(data);
+  addList(data) {
+    console.log(data)
   }
 
 }
