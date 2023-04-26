@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet } from 'react-native';
 import { useController } from "react-hook-form";
 import { TextInput } from "react-native-gesture-handler";
-import GlobalSet from '../../shared/styles/global-set';
+import GlobalSet from '../../styles/global-set';
 
 interface FormInputProps {
     name: string;

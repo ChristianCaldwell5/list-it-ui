@@ -8,17 +8,16 @@ import ThemedText from '../../shared/components/ThemedText';
 import ListHintCard from './components/ListHintCard';
 import NavigationBar from '../../shared/components/Navigation';
 import Modal from '../../shared/components/Modal';
-import { List, ListScreenState } from '../../shared/models/list';
-import { ShortList } from '../../../assets/mocks/short-list';
-import FormInput from '../../shared/components/FormInput';
+import { List } from '../../shared/models/list';
+import FormInput from '../../shared/components/form/FormInput';
 import { useForm } from 'react-hook-form';
 
 const styles = ListStyles;
 
-function ListScreen2(props: any, state: ListScreenState) {
-  const [ lists, setLists ] = useState(ShortList);
+function ListScreen2(props: any) {
+  const [ lists, setLists ] = useState([]);
   const [ displayModal, setDisplayModal ] = useState(false);
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, reset } = useForm();
 
   const displayAddListModal = () => {
     setDisplayModal(true);
@@ -26,6 +25,11 @@ function ListScreen2(props: any, state: ListScreenState) {
 
   const handleDisplayModal = (value: boolean) => {
     setDisplayModal(value);
+  }
+
+  const selectList = (list) => {
+    console.log(list)
+    props.navigation.navigate('ListDetails', { list: list });
   }
 
   const addListModalContent = () => {
@@ -51,20 +55,27 @@ function ListScreen2(props: any, state: ListScreenState) {
   }
 
   const addList = (data) => {
-      const newList: List = {
-        title: data.listTitle,
-        itemCount: 0,
-        sharedCount: 0
-      }
-      setLists([...lists, newList]);
-      setDisplayModal(false);
+    // create new list
+    const newList: List = {
+      title: data.listTitle,
+      itemCount: 0,
+      sharedCount: 0
+    }
+    // reset form. A param can be passed to set default values
+    reset(() => ({
+      listTitle: '',
+    }));
+    // add new list to lists array
+    setLists([...lists, newList]);
+    // close modal
+    setDisplayModal(false);
   }
 
   return (
-      <SafeAreaView style={styles.container}>
+    <SafeAreaView style={GlobalStyles.container}>
       {displayModal && <Modal title={'New List'} shouldDisplay={(e) => handleDisplayModal(e)} children={addListModalContent()}></Modal>}
-      <ScrollView style={styles.contentScrollView} contentContainerStyle={styles.contentContainer}>
-        <View style={[styles.header, GlobalStyles.flexRow, GlobalStyles.spaceBetween, GlobalStyles.alignCenter, GlobalStyles.fullWidth]}>
+      <ScrollView style={GlobalStyles.contentScrollView} contentContainerStyle={GlobalStyles.contentContainer}>
+        <View style={[GlobalStyles.header, GlobalStyles.flexRow, GlobalStyles.spaceBetween, GlobalStyles.alignCenter, GlobalStyles.fullWidth]}>
           <ThemedText
             text={"Your Lists"}
             bold={true}
@@ -84,9 +95,33 @@ function ListScreen2(props: any, state: ListScreenState) {
           </TouchableOpacity>
         </View>
         {
-          lists.map((list) => 
-            <ListHintCard list={list} key={list.title}></ListHintCard>
+          lists.length !== 0 &&
+          lists.map((list, index) => 
+            <TouchableOpacity
+            onPress={(list) => selectList(list)}
+            style={GlobalStyles.fullWidth}
+            key={index}>
+              <ListHintCard list={list} key={list.title}></ListHintCard>
+            </TouchableOpacity>
           )
+        }
+        {
+          lists.length === 0 &&
+          <View style={styles.noListContainer}>
+            <ThemedText
+              text={"You don't have any lists right now"}
+              bold={true}
+              fontSize={GlobalSet.fontSizes.regular}
+              color={GlobalSet.colorSet.grey}>
+            </ThemedText>
+            <ThemedText
+              text={"Lists you create or shared with you will appear here"}
+              bold={false}
+              fontSize={GlobalSet.fontSizes.small}
+              color={GlobalSet.colorSet.grey}
+              align={'center'}>
+            </ThemedText>
+          </View>
         }
       </ScrollView>
       <NavigationBar props={props}></NavigationBar>
