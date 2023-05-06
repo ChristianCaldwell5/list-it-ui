@@ -27,8 +27,10 @@ function ListScreen2(props: any) {
     setDisplayModal(value);
   }
 
-  const selectList = (list) => {
-    props.navigation.navigate('ListDetails', { list: list });
+  const selectList = (list: List) => {
+    props.navigation.navigate('ListDetails', {
+      list 
+    });
   }
 
   const addListModalContent = () => {
@@ -58,7 +60,8 @@ function ListScreen2(props: any) {
     const newList: List = {
       title: data.listTitle,
       itemCount: 0,
-      sharedCount: 0
+      sharedCount: 0,
+      items: [],
     }
     // reset form. A param can be passed to set default values
     reset(() => ({
@@ -97,7 +100,7 @@ function ListScreen2(props: any) {
           lists.length !== 0 &&
           lists.map((list, index) => 
             <TouchableOpacity
-            onPress={(list) => selectList(list)}
+            onPress={() => selectList(list)}
             style={GlobalStyles.fullWidth}
             key={index}>
               <ListHintCard list={list} key={list.title}></ListHintCard>

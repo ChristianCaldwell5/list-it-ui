@@ -26,6 +26,10 @@ const GlobalStyles = StyleSheet.create({
         paddingTop: 40,
         paddingHorizontal: 5
     },
+    subHeader: {
+        paddingTop: 20,
+        paddingHorizontal: 5
+    },
 
     // Utility
     flexRow: {
