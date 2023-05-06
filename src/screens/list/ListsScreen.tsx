@@ -28,7 +28,6 @@ function ListScreen2(props: any) {
   }
 
   const selectList = (list) => {
-    console.log(list)
     props.navigation.navigate('ListDetails', { list: list });
   }
 

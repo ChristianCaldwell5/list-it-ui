@@ -2,29 +2,6 @@ import { StyleSheet } from 'react-native';
 import GlobalSet from '../../shared/styles/global-set';
 
 const ListStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: GlobalSet.colorSet.WhiteGrey,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  contentScrollView: {
-    flex: 1,
-    width: '100%',
-    paddingVertical: 0,
-    paddingHorizontal: 25,
-    marginBottom: 60
-  },
-  contentContainer: {
-    flex: 1,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  header: {
-    paddingTop: 40,
-    paddingHorizontal: 5
-  },
   cardContainer: {
     width: '100%',
     backgroundColor: GlobalSet.colorSet.LightGrey,

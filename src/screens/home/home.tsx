@@ -6,10 +6,7 @@ import ThemedText from '../../shared/components/ThemedText';
 const HomeScreen = (props) => {
   return (
     <View style={styles.container}>
-      <ThemedText text={"Hello Christian"} color={'yellow'}></ThemedText>
-      <ThemedText text={"Hello Chris"} color={'blue'}></ThemedText>
-      <ThemedText text={"Hello BITCH"} color={'purple'}></ThemedText>
-      <ThemedText text={"Hello FAT ASS"} color={'pink'}></ThemedText>
+      <ThemedText text={"Hello World"} color={'white'}></ThemedText>
       <StatusBar style={"auto"}/>
       <NavigationBar props={props}></NavigationBar>
     </View>
