@@ -22,13 +22,11 @@ const GlobalStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
-    header: {
+    headerMargin: {
         paddingTop: 40,
-        paddingHorizontal: 5
     },
-    subHeader: {
+    subHeaderMargin: {
         paddingTop: 20,
-        paddingHorizontal: 5
     },
 
     // Utility
@@ -55,6 +53,9 @@ const GlobalStyles = StyleSheet.create({
     },
     fullWidth: {
         width: "100%"
+    },
+    rowPadding: {
+        paddingHorizontal: 5
     }
 });
 

@@ -7,6 +7,7 @@ import FormInput from "../../shared/components/form/FormInput";
 import Modal from "../../shared/components/Modal";
 import ThemedText from "../../shared/components/ThemedText";
 import { ListItem } from "../../shared/models/list";
+import GlobalStyle from "../../shared/styles/global-set";
 import GlobalSet from '../../shared/styles/global-set';
 import GlobalStyles from "../../shared/styles/global-styles";
 import ListStyles from "./ListStyles";
@@ -83,11 +84,29 @@ function ListDetailsScreen(props) {
         setDisplayModal(false);
     }
 
+    // navigate back to lists screen
+    const navigateBackToLists = () => {
+        props.navigation.navigate('List');
+    }
+
     return (
         <SafeAreaView style={GlobalStyles.container}>
             {displayModal && <Modal title={'New Item'} shouldDisplay={(e) => handleDisplayModal(e)} children={addItemModalContent()}></Modal>}
             <ScrollView style={GlobalStyles.contentScrollView} contentContainerStyle={GlobalStyles.contentContainer}>
-                <View style={[GlobalStyles.header, GlobalStyles.flexRow, GlobalStyles.spaceBetween, GlobalStyles.alignCenter, GlobalStyles.fullWidth]}>
+                <View style={[GlobalStyles.headerMargin, GlobalStyles.flexRow, GlobalStyles.fullWidth]}>
+                    <TouchableOpacity
+                        onPress={navigateBackToLists}
+                        style={[styles.backBtn, GlobalStyles.flexRow]}>
+                        <MaterialIcons name='chevron-left' size={20} color='black'/>
+                        <ThemedText
+                            text={"back"}
+                            bold={false}
+                            fontSize={GlobalSet.fontSizes.regular}
+                            color={GlobalSet.colorSet.black}>
+                        </ThemedText>
+                    </TouchableOpacity>
+                </View>
+                <View style={[GlobalStyles.flexRow, GlobalStyles.spaceBetween, GlobalStyles.alignCenter, GlobalStyles.fullWidth]}>
                     <ThemedText
                         text={list.title}
                         bold={true}
@@ -106,7 +125,7 @@ function ListDetailsScreen(props) {
                         <MaterialIcons name='add' size={20} color='black'/>
                     </TouchableOpacity>
                 </View>
-                <View style={[GlobalStyles.subHeader, GlobalStyles.fullWidth]}>
+                <View style={[GlobalStyles.subHeaderMargin, GlobalStyles.fullWidth]}>
                     <ThemedText
                         text={list.description}
                         bold={false}

@@ -77,7 +77,7 @@ function ListScreen2(props: any) {
     <SafeAreaView style={GlobalStyles.container}>
       {displayModal && <Modal title={'New List'} shouldDisplay={(e) => handleDisplayModal(e)} children={addListModalContent()}></Modal>}
       <ScrollView style={GlobalStyles.contentScrollView} contentContainerStyle={GlobalStyles.contentContainer}>
-        <View style={[GlobalStyles.header, GlobalStyles.flexRow, GlobalStyles.spaceBetween, GlobalStyles.alignCenter, GlobalStyles.fullWidth]}>
+        <View style={[GlobalStyles.headerMargin, GlobalStyles.flexRow, GlobalStyles.spaceBetween, GlobalStyles.alignCenter, GlobalStyles.fullWidth]}>
           <ThemedText
             text={"Your Lists"}
             bold={true}
