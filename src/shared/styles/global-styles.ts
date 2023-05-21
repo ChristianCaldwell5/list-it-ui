@@ -6,8 +6,6 @@ const GlobalStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: GlobalSet.colorSet.WhiteGrey,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
     },
     contentScrollView: {
         flex: 1,
@@ -23,10 +21,10 @@ const GlobalStyles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     headerMargin: {
-        paddingTop: 40,
+        marginTop: 40,
     },
     subHeaderMargin: {
-        paddingTop: 20,
+        marginTop: 20,
     },
 
     // Utility
@@ -47,6 +45,9 @@ const GlobalStyles = StyleSheet.create({
     },
     justifyCenter: {
         justifyContent: "center"
+    },
+    marginBottom20: {
+        marginBottom: 20
     },
     alignCenter: {
         alignItems: "center"

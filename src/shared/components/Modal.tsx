@@ -19,24 +19,26 @@ export default class Modal extends React.Component<ModalProps> {
 
     render(): React.ReactNode {
         return (
-            <SafeAreaView style={style.backdropContainer}>
-                <View style={[style.header, GlobalStyles.flexRow, GlobalStyles.spaceBetween, GlobalStyles.alignCenter, GlobalStyles.fullWidth]}>
-                    <ThemedText
-                        text={this.props.title}
-                        bold={true}
-                        fontSize={GlobalSet.fontSizes.xlarge}
-                        color={GlobalSet.colorSet.bgBlack}>
-                    </ThemedText>
-                    <TouchableOpacity
-                        onPress={this.dismissModal}
-                        style={[style.cancelBtn,  GlobalStyles.flexRow]}>
-                        <MaterialIcons name='cancel' size={40} color={GlobalSet.colorSet.deleteRed}/>
-                    </TouchableOpacity>
+            <View style={style.backdropContainer}>
+                <View style={style.innerContent}>
+                    <View style={[style.header, GlobalStyles.flexRow, GlobalStyles.spaceBetween, GlobalStyles.alignCenter, GlobalStyles.fullWidth]}>
+                        <ThemedText
+                            text={this.props.title}
+                            bold={true}
+                            fontSize={GlobalSet.fontSizes.xlarge}
+                            color={GlobalSet.colorSet.bgBlack}>
+                        </ThemedText>
+                        <TouchableOpacity
+                            onPress={this.dismissModal}
+                            style={[style.cancelBtn,  GlobalStyles.flexRow]}>
+                            <MaterialIcons name='cancel' size={40} color={GlobalSet.colorSet.deleteRed}/>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={style.children}>
+                        {this.props.children}
+                    </View>
                 </View>
-                <View style={style.children}>
-                    {this.props.children}
-                </View>
-            </SafeAreaView>
+            </View>
         )
     }
 
@@ -54,9 +56,12 @@ const style = StyleSheet.create({
         width: '100%',
         position: 'absolute',
         left: 0,
+        right: 0,
         top: 0,
-        bottom: 0,
-        paddingHorizontal: 30
+        bottom: 0
+    },
+    innerContent: {
+        marginHorizontal: 30
     },
     cancelBtn: {
         overflow: 'hidden',
@@ -64,7 +69,7 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
     header: {
-        paddingTop: 70,
+        marginTop: 70,
         paddingBottom: 10,
         borderBottomWidth: 2,
         borderBottomColor: GlobalSet.colorSet.appBlack

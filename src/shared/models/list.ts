@@ -1,7 +1,6 @@
 export interface List {
     title: string,
     description?: string,
-    itemCount: number,
     sharedCount: number,
     items: ListItem[]
 }
@@ -9,13 +8,14 @@ export interface List {
 export interface ListItem {
     checked: boolean,
     title: string,
+    quantity?: number,
     description?: string,
     priority?: number
 }
 
 // props
 export interface ListHintCardProps {
-    key: string,
+    key: number,
     list: List
 }
 

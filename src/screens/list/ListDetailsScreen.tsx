@@ -4,13 +4,15 @@ import { useForm } from "react-hook-form";
 import { Pressable, ScrollView, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import FormInput from "../../shared/components/form/FormInput";
+import NumberInput, { WidthType } from "../../shared/components/form/NumberInput";
 import Modal from "../../shared/components/Modal";
 import ThemedText from "../../shared/components/ThemedText";
 import { ListItem } from "../../shared/models/list";
-import GlobalStyle from "../../shared/styles/global-set";
 import GlobalSet from '../../shared/styles/global-set';
 import GlobalStyles from "../../shared/styles/global-styles";
-import ListStyles from "./ListStyles";
+import ListStyles from "./styles/ListStyles";
+import ListItemRow from "./components/ListItemRow";
+import UserService from "../../services/user.service";
 
 const styles = ListStyles;
 
@@ -19,12 +21,12 @@ function ListDetailsScreen(props) {
     const {navigation} = props;
     // get list from navigation props
     const list = navigation.getParam('list');
+    // get list index from navigation props
+    const index = navigation.getParam('index');
     // display modal state
     const [ displayModal, setDisplayModal ] = useState(false);
     // form hook
     const { control, handleSubmit, reset } = useForm();
-
-    list.description = "This is a description for the list."
 
     const displayAddListModal = () => {
         setDisplayModal(true);
@@ -36,33 +38,42 @@ function ListDetailsScreen(props) {
 
     const addItemModalContent = () => {
         return (
-          <View>
-            {/* Item Title */}
-            <ThemedText
-              text={"Title"}
-              bold={true}
-              fontSize={GlobalSet.fontSizes.large}
-              color={GlobalSet.colorSet.bgBlack}>
-            </ThemedText>
-            <FormInput name='itemTitle' control={control}></FormInput>
-            {/* Item Description */}
-            <ThemedText
-              text={"Description (optional)"}
-              bold={true}
-              fontSize={GlobalSet.fontSizes.large}
-              color={GlobalSet.colorSet.bgBlack}>
-            </ThemedText>
-            <FormInput name='itemDescription' control={control}></FormInput>
-            {/* Submit Button */}
-            <Pressable style={styles.submit} onPress={handleSubmit(addItem)}>
-              <ThemedText
-                text={"create"}
-                bold={false}
-                fontSize={GlobalSet.fontSizes.regular}
-                color={GlobalSet.colorSet.WhiteGrey}>
-              </ThemedText>
-            </Pressable>
-          </View>
+            <View>
+                {/* Item Title */}
+                <ThemedText
+                    text={"Title"}
+                    bold={true}
+                    fontSize={GlobalSet.fontSizes.large}
+                    color={GlobalSet.colorSet.bgBlack}>
+                </ThemedText>
+                <FormInput name='itemTitle' control={control}></FormInput>
+                {/* Item Description */}
+                <ThemedText
+                    text={"Description (optional)"}
+                    bold={true}
+                    fontSize={GlobalSet.fontSizes.large}
+                    color={GlobalSet.colorSet.bgBlack}>
+                </ThemedText>
+                <FormInput name='itemDescription' control={control}></FormInput>
+                <View style={[GlobalStyles.flexRow, GlobalStyles.alignCenter, GlobalStyles.spaceBetween, GlobalStyles.marginBottom20]}>
+                    <ThemedText
+                        text={"Quantity (optional)"}
+                        bold={true}
+                        fontSize={GlobalSet.fontSizes.large}
+                        color={GlobalSet.colorSet.bgBlack}>
+                    </ThemedText>
+                    <NumberInput name='itemQuantity' width={WidthType.quarter} control={control}></NumberInput>
+                </View>
+                {/* Submit Button */}
+                <Pressable style={styles.submit} onPress={handleSubmit(addItem)}>
+                    <ThemedText
+                        text={"create"}
+                        bold={false}
+                        fontSize={GlobalSet.fontSizes.regular}
+                        color={GlobalSet.colorSet.WhiteGrey}>
+                    </ThemedText>
+                </Pressable>
+            </View>
         )
     }
 
@@ -72,6 +83,7 @@ function ListDetailsScreen(props) {
             checked: false,
             title: data.itemTitle,
             description: data.itemDescription,
+            quantity: data.itemQuantity,
             priority: 0,
         }
         // reset form. A param can be passed to set default values
@@ -80,6 +92,8 @@ function ListDetailsScreen(props) {
         }));
         // add new item to items array within list
         list.items.push(newItem);
+        // update user list
+        UserService.updateUserList(list, index);
         // close modal
         setDisplayModal(false);
     }
@@ -125,7 +139,7 @@ function ListDetailsScreen(props) {
                         <MaterialIcons name='add' size={20} color='black'/>
                     </TouchableOpacity>
                 </View>
-                <View style={[GlobalStyles.subHeaderMargin, GlobalStyles.fullWidth]}>
+                <View style={[GlobalStyles.subHeaderMargin, GlobalStyles.fullWidth, GlobalStyles.marginBottom20]}>
                     <ThemedText
                         text={list.description}
                         bold={false}
@@ -133,6 +147,11 @@ function ListDetailsScreen(props) {
                         color={GlobalSet.colorSet.LightGrey}>
                     </ThemedText>
                 </View>
+                {
+                    list.items.map((item: ListItem, index) => 
+                        <ListItemRow item={item} key={index}></ListItemRow>
+                    )
+                }
             </ScrollView>
         </SafeAreaView>
     );
