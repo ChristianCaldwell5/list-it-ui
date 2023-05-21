@@ -70,7 +70,6 @@ function ListScreen(props) {
     const newList: List = {
       title: data.listTitle,
       description: data.listDescription,
-      itemCount: 0,
       sharedCount: 0,
       items: [],
     }
