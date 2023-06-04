@@ -18,7 +18,6 @@ interface NumberInputProps {
 }
 
 export default function FormInput(props: NumberInputProps) {
-    console.log(props.name);
     const {field} = useController({
         control: props.control,
         name: props.name,

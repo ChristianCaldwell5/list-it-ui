@@ -20,9 +20,9 @@ function ListDetailsScreen(props) {
     // get navigation props
     const {navigation} = props;
     // get list from navigation props
-    const list = navigation.getParam('list');
+    const [ list, setList ] = useState(navigation.getParam('list'));
     // get list index from navigation props
-    const index = navigation.getParam('index');
+    const listIndex = navigation.getParam('index');
     // display modal state
     const [ displayModal, setDisplayModal ] = useState(false);
     // form hook
@@ -80,7 +80,7 @@ function ListDetailsScreen(props) {
     const addItem = (data) => {
         // create new item
         const newItem: ListItem = {
-            checked: false,
+            isChecked: false,
             title: data.itemTitle,
             description: data.itemDescription,
             quantity: data.itemQuantity,
@@ -93,9 +93,35 @@ function ListDetailsScreen(props) {
         // add new item to items array within list
         list.items.push(newItem);
         // update user list
-        UserService.updateUserList(list, index);
+        UserService.updateUserList(list, listIndex);
         // close modal
         setDisplayModal(false);
+    }
+
+    const handleIsChecked = (item: ListItem, isChecked: boolean, index) => {
+        // update item checked value
+        //item.isChecked = isChecked;
+        // if item is checked, move to completed items array
+        if (isChecked) {
+            // remove item from items array
+            list.items.splice(index, 1);
+            // add checked item to completed items array
+            
+            list.completedItems.push(item);
+            item.isChecked = true;
+        } else {
+            // remove item from completed items array
+            list.completedItems.splice(index, 1);
+            // add item to items array
+            item.isChecked = false;
+            list.items.push(item);
+        }
+        UserService.updateUserList(list, listIndex);
+        setList({
+            ...list,
+            items: list.items,
+            completedItems: list.completedItems,
+        });
     }
 
     // navigate back to lists screen
@@ -148,8 +174,21 @@ function ListDetailsScreen(props) {
                     </ThemedText>
                 </View>
                 {
+                    list.items && list.items.length > 0 &&
                     list.items.map((item: ListItem, index) => 
-                        <ListItemRow item={item} key={index}></ListItemRow>
+                        <ListItemRow item={item} key={index} checked={(e) => handleIsChecked(item, e, index)}></ListItemRow>
+                    )
+                }
+                <ThemedText
+                    text={"Completed Items"}
+                    bold={true}
+                    fontSize={GlobalSet.fontSizes.large}
+                    color={GlobalSet.colorSet.bgBlack}>
+                </ThemedText>
+                {
+                    list.completedItems && list.completedItems.length > 0 &&
+                    list.completedItems.map((item: ListItem, index) => 
+                        <ListItemRow item={item} key={index} checked={(e) => handleIsChecked(item, e, index)}></ListItemRow>
                     )
                 }
             </ScrollView>

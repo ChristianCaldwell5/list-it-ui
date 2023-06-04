@@ -8,38 +8,38 @@ export const user1: User = {
         {
             title: 'Groceries',
             description: "Buy groceries for the week",
-            itemCount: 2,
             sharedCount: 0,
             items: [
                 {
-                    checked: false,
+                    isChecked: false,
                     title: 'Milk',
                     quantity: 1,
                     description: '2% milk',
                     priority: 1,
                 },
                 {
-                    checked: false,
+                    isChecked: false,
                     title: 'Eggs',
                     quantity: 2,
                     description: '1 dozen',
                     priority: 1,
                 }
-            ]
+            ],
+            completedItems: []
         },
         {
             title: 'Errands',
             description: "Weekly tasks",
-            itemCount: 1,
             sharedCount: 0,
             items: [
                 {
-                    checked: false,
+                    isChecked: false,
                     title: 'Pick up dry cleaning',
                     description: 'Pick up dry cleaning',
                     priority: 1,
                 }
-            ]
+            ],
+            completedItems: []
         },
     ]
 }

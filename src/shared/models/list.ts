@@ -2,11 +2,12 @@ export interface List {
     title: string,
     description?: string,
     sharedCount: number,
-    items: ListItem[]
+    items: ListItem[],
+    completedItems: ListItem[]
 }
 
 export interface ListItem {
-    checked: boolean,
+    isChecked: boolean,
     title: string,
     quantity?: number,
     description?: string,

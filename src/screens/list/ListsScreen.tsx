@@ -72,6 +72,7 @@ function ListScreen(props) {
       description: data.listDescription,
       sharedCount: 0,
       items: [],
+      completedItems: []
     }
     // reset form. A param can be passed to set default values
     reset(() => ({

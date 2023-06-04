@@ -8,16 +8,26 @@ import ThemedText from "../../../shared/components/ThemedText";
 
 interface ListItemProps {
     item: ListItem,
-    key: number
+    key: number,
+    checked: (value: boolean) => void;
 }
 
 export default function ListItemRow(props: ListItemProps) {
+
+    const listItemProps = props;
+
+    console.log("List Item", listItemProps.item.isChecked)
+
+    const handleIsChecked = (isChecked: boolean) => {
+        listItemProps.checked(isChecked);
+    }
+
     return (
         <View style={[styles.itemContainer, GlobalStyles.flexRow, GlobalStyles.alignCenter, GlobalStyles.spaceBetween]}>
-            <Checkbox text={props.item.title}></Checkbox>
+            <Checkbox text={listItemProps.item.title} isChecked={listItemProps.item.isChecked} checked={(e) => handleIsChecked(e)}></Checkbox>
             <View style={[GlobalStyles.flexRow, GlobalStyles.alignCenter]}>
-                {props.item.quantity && <ThemedText
-                    text={'x'+props.item.quantity}
+                {listItemProps.item.quantity && <ThemedText
+                    text={'x'+listItemProps.item.quantity}
                     bold={false}
                     fontSize={GlobalStyle.fontSizes.small}
                     color={GlobalStyle.colorSet.LightGrey}>
