@@ -12,6 +12,7 @@ import { List } from '../../shared/models/list';
 import FormInput from '../../shared/components/form/FormInput';
 import { useForm } from 'react-hook-form';
 import UserService from '../../services/user.service';
+import { CheckBox } from '@rneui/themed';
 
 const styles = ListStyles;
 
@@ -20,6 +21,7 @@ function ListScreen(props) {
   const { control, handleSubmit, reset } = useForm();
   const [ user, setUser ] = useState(UserService.getUser());
   const [ lists, setLists ] = useState(user.lists);
+  const [ editNewList, setEditNewList ] = useState(false);
 
   const displayAddListModal = () => {
     setDisplayModal(true);
@@ -53,6 +55,13 @@ function ListScreen(props) {
           color={GlobalSet.colorSet.bgBlack}>
         </ThemedText>
         <FormInput name='listDescription' control={control}></FormInput>
+        <CheckBox
+            size={30}
+            containerStyle={{backgroundColor: 'transparent', padding: 0}}
+            title={"Edit list after creation"}
+            checked={editNewList}
+            onPress={() => setEditNewList(!editNewList)}
+        />
         <Pressable style={styles.submit} onPress={handleSubmit(addList)}>
           <ThemedText
             text={"create"}
@@ -79,7 +88,14 @@ function ListScreen(props) {
       listTitle: '',
     }));
     // add new list to lists array
-    setLists([...lists, newList]);
+    UserService.addUserList(newList);
+    // if editNewList is true, navigate to ListDetails screen
+    if (editNewList) {
+      props.navigation.navigate('ListDetails', {
+        list: newList,
+        index: lists.length-1
+      });
+    }
     // close modal
     setDisplayModal(false);
   }

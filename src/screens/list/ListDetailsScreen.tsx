@@ -100,20 +100,17 @@ function ListDetailsScreen(props) {
 
     const handleIsChecked = (item: ListItem, isChecked: boolean, index) => {
         // update item checked value
-        //item.isChecked = isChecked;
+        item.isChecked = isChecked;
         // if item is checked, move to completed items array
         if (isChecked) {
             // remove item from items array
             list.items.splice(index, 1);
             // add checked item to completed items array
-            
-            list.completedItems.push(item);
-            item.isChecked = true;
+            list.completedItems.unshift(item);
         } else {
             // remove item from completed items array
             list.completedItems.splice(index, 1);
             // add item to items array
-            item.isChecked = false;
             list.items.push(item);
         }
         UserService.updateUserList(list, listIndex);
@@ -165,26 +162,45 @@ function ListDetailsScreen(props) {
                         <MaterialIcons name='add' size={20} color='black'/>
                     </TouchableOpacity>
                 </View>
-                <View style={[GlobalStyles.subHeaderMargin, GlobalStyles.fullWidth, GlobalStyles.marginBottom20]}>
-                    <ThemedText
-                        text={list.description}
-                        bold={false}
-                        fontSize={GlobalSet.fontSizes.small}
-                        color={GlobalSet.colorSet.LightGrey}>
-                    </ThemedText>
-                </View>
+                {
+                    list.description &&
+                    <View style={[GlobalStyles.subHeaderMargin, GlobalStyles.fullWidth, GlobalStyles.marginBottom20]}>
+                        <ThemedText
+                            text={list.description}
+                            bold={false}
+                            fontSize={GlobalSet.fontSizes.small}
+                            color={GlobalSet.colorSet.LightGrey}>
+                        </ThemedText>
+                    </View>
+                }
+                {
+                    list.items && list.items.length === 0 &&
+                    <View style={[GlobalStyles.center, GlobalStyles.fullWidth]}>
+                        <ThemedText
+                            text={"All items completed!"}
+                            bold={true}
+                            fontSize={GlobalSet.fontSizes.regular}
+                            color={GlobalSet.colorSet.grey}>
+                        </ThemedText>
+                    </View> 
+                }
                 {
                     list.items && list.items.length > 0 &&
                     list.items.map((item: ListItem, index) => 
                         <ListItemRow item={item} key={index} checked={(e) => handleIsChecked(item, e, index)}></ListItemRow>
                     )
                 }
-                <ThemedText
-                    text={"Completed Items"}
-                    bold={true}
-                    fontSize={GlobalSet.fontSizes.large}
-                    color={GlobalSet.colorSet.bgBlack}>
-                </ThemedText>
+                {
+                    list.completedItems && list.completedItems.length > 0 &&
+                    <View style={[GlobalStyles.alignLeft, GlobalStyles.fullWidth, GlobalStyles.subHeaderMargin, GlobalStyles.marginBottom20]}>
+                        <ThemedText
+                            text={"Completed Items:"}
+                            bold={true}
+                            fontSize={GlobalSet.fontSizes.large}
+                            color={GlobalSet.colorSet.bgBlack}>
+                        </ThemedText>
+                    </View> 
+                }
                 {
                     list.completedItems && list.completedItems.length > 0 &&
                     list.completedItems.map((item: ListItem, index) => 

@@ -57,6 +57,9 @@ const GlobalStyles = StyleSheet.create({
     },
     rowPadding: {
         paddingHorizontal: 5
+    },
+    alignLeft: {
+        alignContent: "flex-start"
     }
 });
 

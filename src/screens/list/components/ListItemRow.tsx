@@ -16,8 +16,6 @@ export default function ListItemRow(props: ListItemProps) {
 
     const listItemProps = props;
 
-    console.log("List Item", listItemProps.item.isChecked)
-
     const handleIsChecked = (isChecked: boolean) => {
         listItemProps.checked(isChecked);
     }

@@ -18,6 +18,14 @@ export default class UserService {
         this.user.lists[index] = list;
     }
 
+    static addUserList(list: List) {
+        this.user.lists.push(list);
+    }
+
+    static deleteUserList(index: number) {
+        this.user.lists.splice(index, 1);
+    }
+
     // return mock user
     static getMockUser(): User {
         return user1
