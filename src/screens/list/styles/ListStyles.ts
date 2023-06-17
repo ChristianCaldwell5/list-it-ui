@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import GlobalSet from '../../shared/styles/global-set';
+import GlobalSet from '../../../shared/styles/global-set';
 
 const ListStyles = StyleSheet.create({
   cardContainer: {
@@ -8,8 +8,12 @@ const ListStyles = StyleSheet.create({
     borderRadius: 15,
     paddingVertical: 20,
     paddingHorizontal: 15,
-    marginVertical: 20,
-    overflow: 'hidden'
+    marginVertical: 10,
+    //overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: {width: -3, height: 6},
+    shadowOpacity: 0.50,
+    shadowRadius: 3,
   },
   noListContainer: {
     flex: 1,
@@ -21,10 +25,17 @@ const ListStyles = StyleSheet.create({
   },
   addBtn: {
     fontSize: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
     borderWidth: 2,
     borderRadius: 10,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  backBtn: {
+    fontSize: 20,
+    paddingVertical: 10,
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',

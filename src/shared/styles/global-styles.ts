@@ -6,8 +6,6 @@ const GlobalStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: GlobalSet.colorSet.WhiteGrey,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
     },
     contentScrollView: {
         flex: 1,
@@ -22,13 +20,11 @@ const GlobalStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
-    header: {
-        paddingTop: 40,
-        paddingHorizontal: 5
+    headerMargin: {
+        marginTop: 40,
     },
-    subHeader: {
-        paddingTop: 20,
-        paddingHorizontal: 5
+    subHeaderMargin: {
+        marginTop: 20,
     },
 
     // Utility
@@ -50,11 +46,20 @@ const GlobalStyles = StyleSheet.create({
     justifyCenter: {
         justifyContent: "center"
     },
+    marginBottom20: {
+        marginBottom: 20
+    },
     alignCenter: {
         alignItems: "center"
     },
     fullWidth: {
         width: "100%"
+    },
+    rowPadding: {
+        paddingHorizontal: 5
+    },
+    alignLeft: {
+        alignContent: "flex-start"
     }
 });
 

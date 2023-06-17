@@ -4,12 +4,20 @@ import { useController } from "react-hook-form";
 import { TextInput } from "react-native-gesture-handler";
 import GlobalSet from '../../styles/global-set';
 
-interface FormInputProps {
+export enum WidthType {
+    full = '100%',
+    half = '50%',
+    quarter = '25%'
+}
+
+interface NumberInputProps {
     name: string;
+    maxLength?: number;
+    width?: WidthType;
     control?: any;
 }
 
-export default function FormInput(props: FormInputProps) {
+export default function FormInput(props: NumberInputProps) {
     const {field} = useController({
         control: props.control,
         name: props.name,
@@ -20,17 +28,16 @@ export default function FormInput(props: FormInputProps) {
         <TextInput
             value={field.value}
             onChangeText={field.onChange}
-            style={styles.input}
-            clearButtonMode='always'
+            style={[styles.input, {width: props.width ? props.width : WidthType.full}]}
+            maxLength={props.maxLength}
+            inputMode='numeric'
         />
     )
 }
 
 const styles = StyleSheet.create({
     input: {
-        width: '100%',
         borderColor: GlobalSet.colorSet.bgBlack,
-        marginBottom: 20,
         borderWidth: 1,
         borderRadius: 5,
         padding: 10,
